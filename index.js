@@ -49,6 +49,20 @@ async function run() {
             const quary = { _id: ObjectId(id) };
             const result = await serviceCollection.deleteOne(quary);
             res.send(result)
+        });
+
+        // update product
+        app.put('/service/:id', async (req, res) => {
+            const id = req.params.id;
+            const service = req.body;
+            const filter = { _id: ObjectId(id) };
+            const opions = { upsert: true };
+            const updateProduct = {
+                $set: { quantity: service.quantity }
+            };
+            const result = await serviceCollection.updateOne(filter, updateProduct, opions);
+            console.log(filter, updateProduct, opions)
+            res.send(result)
         })
     }
     finally {
