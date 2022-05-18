@@ -41,6 +41,14 @@ async function run() {
             const newService = req.body;
             const result = await serviceCollection.insertOne(newService);
             res.send(result);
+        });
+
+        // delete product
+        app.delete('/service/:id', async (req, res) => {
+            const id = req.params.id;
+            const quary = { _id: ObjectId(id) };
+            const result = await serviceCollection.deleteOne(quary);
+            res.send(result)
         })
     }
     finally {
